@@ -18,6 +18,21 @@ type AuthToken struct {
 	ExpireIn     int      `json:"expire_in"`
 }
 
+// StationData comment
+type StationData struct {
+	Body Body `json:"body"`
+}
+
+// Body comment
+type Body struct {
+	Devices []Devices `json:"devices"`
+}
+
+// Devices comment
+type Devices struct {
+	StationName string `json:"station_name"`
+}
+
 func authenticate(client *resty.Client) string {
 	client.SetFormData(map[string]string{
 		"grant_type":    "password",
@@ -36,10 +51,15 @@ func authenticate(client *resty.Client) string {
 	return response.Result().(*AuthToken).AccessToken
 }
 
-func stationData(client *resty.Client, token string) {
-	response, error := client.R().Post("/api/getstationdata")
-	fmt.Println(error)
-	fmt.Println(response)
+func stationData(client *resty.Client, token string) string {
+	client.SetFormData(map[string]string{
+		"access_token": token})
+	response, error := client.R().SetResult(StationData{}).Post("/api/getstationsdata")
+
+	if error != nil {
+		panic(error)
+	}
+	return response.Result().(*StationData).Body.Devices[0].StationName
 
 }
 
@@ -54,5 +74,7 @@ func main() {
 	client.SetHeader("Content-Type", "application/x-www-form-urlencoded")
 	client.SetHostURL("https://api.netatmo.com")
 
-	fmt.Println(authenticate(client))
+	token := authenticate(client)
+
+	fmt.Println(stationData(client, token))
 }
