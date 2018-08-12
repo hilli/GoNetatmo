@@ -21,9 +21,9 @@ type AuthToken struct {
 func authenticate(client *resty.Client) string {
 	client.SetFormData(map[string]string{
 		"grant_type":    "password",
+		"scope":         "read_station",
 		"client_id":     os.Getenv("CLIENT_ID"),
 		"client_secret": os.Getenv("CLIENT_SECRET"),
-		"scope":         "read_station",
 		"username":      os.Getenv("NETATMO_USERNAME"),
 		"password":      os.Getenv("NETATMO_PASSWD")})
 
