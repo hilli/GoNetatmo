@@ -30,7 +30,20 @@ type Body struct {
 
 // Devices comment
 type Devices struct {
-	StationName string `json:"station_name"`
+	ID          string    `json:"_id"`
+	StationName string    `json:"station_name"`
+	ModuleName  string    `json:"module_name"`
+	Firmware    int16     `json:"firmware"`
+	Co2Cal      string    `json:"co2_calibration"`
+	WifiStatus  *int32    `json:"wifi_status,omitempty"`
+	Modules     []Modules `json:"modules"`
+}
+
+// Modules comment
+type Modules struct {
+	BatteryPercent int    `json:"battery_percent"`
+	BatteryVP      int    `json:"battery_vp"`
+	ModuleName     string `json:"module_name"`
 }
 
 func authenticate(client *resty.Client) string {
@@ -51,7 +64,7 @@ func authenticate(client *resty.Client) string {
 	return response.Result().(*AuthToken).AccessToken
 }
 
-func stationData(client *resty.Client, token string) string {
+func stationData(client *resty.Client, token string) *StationData {
 	client.SetFormData(map[string]string{
 		"access_token": token})
 	response, error := client.R().SetResult(StationData{}).Post("/api/getstationsdata")
@@ -59,7 +72,7 @@ func stationData(client *resty.Client, token string) string {
 	if error != nil {
 		panic(error)
 	}
-	return response.Result().(*StationData).Body.Devices[0].StationName
+	return response.Result().(*StationData)
 
 }
 
