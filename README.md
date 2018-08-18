@@ -18,7 +18,7 @@ $ git clone git@github.com:mariusbreivik/GoNetatmo.git
 $ dep ensure
 ```
 
-3. You need to create an application at https://dev.netatmo.com/ to be able to get your weather station data fra https://api.netatmo.com 
+3. You need to create an application at https://dev.netatmo.com/ to be able to get your weather station data fra https://api.netatmo.com  
 Create the _.env_ file in the project directory containing the following:
 ```
 CLIENT_ID=<clientID from your app at https://dev.netatmo.com/myaccount/>
