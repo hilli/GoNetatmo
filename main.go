@@ -31,8 +31,11 @@ type Body struct {
 // Devices comment
 type Devices struct {
 	ID          string    `json:"_id"`
-	StationName string    `json:"station_name"`
+	CipherID    string    `json:"cipher_id"`
+	Type        string    `json:"type"`
 	ModuleName  string    `json:"module_name"`
+	StationName string    `json:"station_name"`
+	DataType    []string  `json:"data_type"`
 	Firmware    int16     `json:"firmware"`
 	Co2Cal      string    `json:"co2_calibration"`
 	WifiStatus  *int32    `json:"wifi_status,omitempty"`
