@@ -1,4 +1,5 @@
-# GoNetatmo [![CircleCI](https://circleci.com/gh/mariusbreivik/GoNetatmo/tree/develop.svg?style=svg)](https://circleci.com/gh/mariusbreivik/GoNetatmo/tree/develop)
+# GoNetatmo [![CircleCi Build Status](https://circleci.com/gh/mariusbreivik/GoNetatmo/tree/develop.svg?style=shield)](https://circleci.com/gh/mariusbreivik/GoNetatmo/tree/develop)
+
 
 Simple goloang client to retrieve json data from the netatmo weather station via [api.netatmo.com]
 
